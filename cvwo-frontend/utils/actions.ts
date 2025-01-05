@@ -1,7 +1,7 @@
 "use server";
 // import { profileSchema, propertySchema } from "./schemas";
 // import db from "./db";
-import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
+import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import axios from "axios";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -180,5 +180,45 @@ export const fetchUserPostAction = async () => {
   } catch (error) {
     console.error("Error fetching user posts:", error);
     throw new Error("Failed to fetch user posts");
+  }
+};
+
+export const deletePostAction = async (postId: number) => {
+  try {
+    const response = await axios.delete(`http://127.0.0.1:3000/api/post/${postId}`);
+    console.log("Post deleted:", response.data);
+    return {
+      message: "Post deleted successfully",
+    };
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    return {
+      message: error instanceof Error ? error.message : "An error occurred",
+    };
+  }
+};
+
+export const updatePostAction = async (prevState: any, formData: FormData) => {
+  try {
+    console.log("FormData Content:", formData);
+    const rawData = Object.fromEntries(formData);
+    const postId = rawData.id;
+    console.log("Updating post with ID:", postId);
+    const response = await axios.put(`http://127.0.0.1:3000/api/post/${postId}`, {
+      title: rawData.title,
+      content: rawData.content,
+      category: rawData.category,
+    });
+    console.log("Post updated:", response.data);
+    return {
+      message: "Post updated successfully",
+    };
+  } catch (error) {
+    console.error("Error updating post:", error);
+    return {
+      message: error instanceof Error ? error.message : "An error occurred",
+    };
+  } finally {
+    redirect("/posts/userPosts");
   }
 };
