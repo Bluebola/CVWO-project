@@ -32,7 +32,7 @@ async function UserPosts() {
         <ul>
           {posts.map(
             (post: {
-              id: string | number;
+              id: number;
               title: string;
               content: string;
               category: string;

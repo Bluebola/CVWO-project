@@ -1,6 +1,5 @@
 "use client";
 
-import { useFormState } from "react-dom";
 import { useActionState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { actionFunction } from "../../utils/types";
@@ -23,7 +22,7 @@ function FormContainer({
     if (state.message) {
       toast({ description: state.message });
     }
-  }, [state]);
+  }, [state, toast]);
   return <form action={formAction}>{children}</form>;
 }
 export default FormContainer;

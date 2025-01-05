@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 // import { uploadImage } from "./supabase";
 
 export const createProfileAction = async (
-  prevState: any,
+  prevState: unknown,
   formData: FormData
 ) => {
   try {
@@ -47,7 +47,7 @@ export const createProfileAction = async (
 };
 
 export const updateProfileAction = async (
-  prevState: any,
+  prevState: unknown,
   formData: FormData
 ): Promise<{ message: string }> => {
   const user = await currentUser();
@@ -126,7 +126,7 @@ export const fetchProfileByUserID = async (userID: string | number) => {
 // 	CommentCount int       `json:"comment_count" gorm:"default:0"`
 // }
 
-export const createPostAction = async (prevState: any, formData: FormData) => {
+export const createPostAction = async (prevState: unknown, formData: FormData) => {
   try {
     console.log(
       "The try block is running, the action is actually being submitted."
@@ -183,6 +183,7 @@ export const fetchUserPostAction = async () => {
   }
 };
 
+// deletePostAction deletes a post with the given ID
 export const deletePostAction = async (postId: number) => {
   try {
     const response = await axios.delete(`http://127.0.0.1:3000/api/post/${postId}`);
@@ -198,7 +199,8 @@ export const deletePostAction = async (postId: number) => {
   }
 };
 
-export const updatePostAction = async (prevState: any, formData: FormData) => {
+// updatePostAction updates a post with the given form data
+export const updatePostAction = async (prevState: unknown, formData: FormData) => {
   try {
     console.log("FormData Content:", formData);
     const rawData = Object.fromEntries(formData);
@@ -220,5 +222,34 @@ export const updatePostAction = async (prevState: any, formData: FormData) => {
     };
   } finally {
     redirect("/posts/userPosts");
+  }
+};
+
+// fetchPostById fetches a single post by its ID
+export const fetchPostById = async (postId: number) => {
+  try {
+    const response = await axios.get(`http://127.0.0.1:3000/api/post/${postId}`);
+    const post = response.data;
+    return post;
+  } catch (error) {
+    console.error("Error fetching post by ID:", error);
+    throw new Error("Failed to fetch post");
+  }
+};
+
+//Check if post's user_id matches the current user's ID
+export const isPostOwner = async (postId: number) => {
+  try {
+    const user = await currentUser();
+    if (!user) throw new Error("Please login to check ownership");
+    // get the current logged in user from the database
+    const databaseUser = await fetchProfile();
+    // get the post by ID
+    const post = await fetchPostById(postId);
+    // check if the post's user_id matches the current user's ID
+    return post.user_id === databaseUser.ID;
+  } catch (error) {
+    console.error("Error checking post ownership:", error);
+    return false;
   }
 };

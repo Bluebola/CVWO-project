@@ -8,9 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { FaRegEdit } from "react-icons/fa";
 import { PiLineVerticalLight } from "react-icons/pi";
-import DeleteButton from "./DeleteButton";
 type PostCardProps = {
   id: number;
   title: string;
@@ -20,7 +18,7 @@ type PostCardProps = {
   comment_count: number;
 };
 
-function UserPostCard({
+function PostCard({
   id,
   title,
   content,
@@ -31,7 +29,7 @@ function UserPostCard({
   return (
     <Card className="transition-colors duration-200 hover:bg-gray-100 my-4">
       <CardHeader className="hover:underline">
-        <Link href={`/posts/view/${id}`}>
+        <Link  href={`/posts/view/${id}`}>
           <CardTitle className="hover:underline">{title}</CardTitle>{" "}
           <CardDescription className="hover:underline mt-2">
             Category: {category}
@@ -50,23 +48,9 @@ function UserPostCard({
         <CardDescription className="ml-1 ">
           <p>comment count: {comment_count}</p>
         </CardDescription>
-        <PiLineVerticalLight className="mx-1" size={22} />{" "}
-        {/* edit link goes here */}
-        <Link
-          href={`/posts/edit/${id}`}
-          className="flex items-center text-gray-500 hover:text-gray-700"
-          title="Press this to edit your post"
-        >
-          <FaRegEdit />
-          <CardDescription className="ml-2  hover:text-gray-700">
-            <p>edit</p>
-          </CardDescription>
-        </Link>
-        <PiLineVerticalLight className="mx-1" size={22} />{" "}
-        <DeleteButton postId={id} />
       </CardFooter>
     </Card>
   );
 }
 
-export default UserPostCard;
+export default PostCard;

@@ -7,7 +7,7 @@ import RequireProfile from "@/components/requireProfile/RequireProfile";
 import { updatePostAction } from "@/utils/actions";
 interface UpdatePostProps {
   params: {
-    id: any;
+    id: number;
   };
 }
 

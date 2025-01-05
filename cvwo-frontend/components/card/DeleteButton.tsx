@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "@/hooks/use-toast";
 
 type DeleteButtonProps = {
-  postId: any;
+  postId: number;
 };
 
 function DeleteButton({ postId }: DeleteButtonProps) {
