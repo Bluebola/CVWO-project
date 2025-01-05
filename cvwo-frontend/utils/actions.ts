@@ -253,3 +253,27 @@ export const isPostOwner = async (postId: number) => {
     return false;
   }
 };
+
+// Get all comments for a post
+export const fetchCommentsAction = async () => {
+  try {
+    const response = await axios.get(`http://127.0.0.1:3000/api/comment`);
+    const comments = response.data;
+    return comments;
+  } catch (error) {
+    console.error("Error fetching comments by post ID:", error);
+    throw new Error("Failed to fetch comments");
+  }
+};
+
+// Get comments for a specific post by its ID
+export const fetchCommentsById = async (postId: number) => {
+  try {
+    const allComments = await fetchCommentsAction();
+    const postComments = allComments.filter((comment: { post_id: number }) => comment.post_id === Number(postId));
+    return postComments;
+  } catch (error) {
+    console.error("Error fetching comments by post ID:", error);
+    throw new Error("Failed to fetch comments");
+  }
+};
