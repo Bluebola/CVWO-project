@@ -66,7 +66,7 @@ func GetPosts(c *fiber.Ctx) error {
 	var posts []models.Post
 
 	// Find all posts in the database
-	if err := database.Database.Db.Find(&posts).Error; err != nil {
+	if err := database.Database.Db.Preload("User").Find(&posts).Error; err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error": "Failed to retrieve posts",
 		})

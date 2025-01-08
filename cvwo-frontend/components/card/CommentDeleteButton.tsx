@@ -26,7 +26,7 @@ function CommentDeleteButton({ commentId }: CommentDeleteButtonProps) {
     <Button
       onClick={handleDeleteClick}
       className="flex items-center text-gray-500 hover:text-gray-700 p-0"
-      title="Press this to delete your post"
+      title="Press this to delete your comment"
       variant="ghost"
     >
       <MdDeleteOutline />

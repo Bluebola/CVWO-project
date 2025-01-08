@@ -11,6 +11,8 @@ import CommentCard from "@/components/card/CommentCard";
 import UserCommentCard from "@/components/card/UserCommentCard";
 import RequireProfile from "@/components/requireProfile/RequireProfile";
 import { fetchCommentsById } from "@/utils/actions";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 interface UpdatePostProps {
   params: {
     id: number;
@@ -75,6 +77,11 @@ async function PostPage({ params }: UpdatePostProps) {
             );
           }
         )}
+      </div>
+      <div className="mt-4">
+        <Link href={`/comments/create/${post.id}`}>
+          <Button variant="default">Add Comment</Button>
+        </Link>
       </div>
     </RequireProfile>
   );

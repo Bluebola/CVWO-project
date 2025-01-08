@@ -9,5 +9,6 @@ type Post struct {
 	DateTime     time.Time `json:"date_time" gorm:"autoCreateTime"`
 	Category     string    `json:"category" gorm:"not null"`
 	UserID       uint      `json:"user_id" gorm:"not null"` // Foreign key to User
+	User         User      `json:"user" gorm:"foreignKey:UserID;references:ID"`
 	CommentCount int       `json:"comment_count" gorm:"default:0"`
 }

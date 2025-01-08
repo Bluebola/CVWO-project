@@ -92,6 +92,7 @@ export const fetchProfile = async () => {
     const users = response.data;
 
     // Find the user with the matching clerk_id
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userProfile = users.find((u: any) => u.clerk_id === user.id);
 
     if (!userProfile) {
@@ -107,7 +108,9 @@ export const fetchProfile = async () => {
 
 export const fetchProfileByUserID = async (userID: string | number) => {
   try {
-    const response = await axios.get(`http://127.0.0.1:3000/api/user/${userID}`);
+    const response = await axios.get(
+      `http://127.0.0.1:3000/api/user/${userID}`
+    );
     const userProfile = response.data;
     return userProfile;
   } catch (error) {
@@ -116,17 +119,10 @@ export const fetchProfileByUserID = async (userID: string | number) => {
   }
 };
 
-// type Post struct {
-// 	ID           uint      `json:"id" gorm:"primaryKey"`
-// 	Title        string    `json:"title" gorm:"not null"`
-// 	Content      string    `json:"content" gorm:"type:text;not null"`
-// 	DateTime     time.Time `json:"date_time" gorm:"autoCreateTime"`
-// 	Category     string    `json:"category" gorm:"not null"`
-// 	UserID       uint      `json:"user_id" gorm:"not null"` // Foreign key to User
-// 	CommentCount int       `json:"comment_count" gorm:"default:0"`
-// }
-
-export const createPostAction = async (prevState: unknown, formData: FormData) => {
+export const createPostAction = async (
+  prevState: unknown,
+  formData: FormData
+) => {
   try {
     console.log(
       "The try block is running, the action is actually being submitted."
@@ -175,7 +171,9 @@ export const fetchUserPostAction = async () => {
     if (!user) throw new Error("Please login to fetch your posts");
     const databaseUser = await fetchProfile();
     const allPosts = await fetchPostsAction();
-    const userPosts = allPosts.filter((post: { user_id: number; }) => post.user_id === databaseUser.ID);
+    const userPosts = allPosts.filter(
+      (post: { user_id: number }) => post.user_id === databaseUser.ID
+    );
     return userPosts;
   } catch (error) {
     console.error("Error fetching user posts:", error);
@@ -186,7 +184,9 @@ export const fetchUserPostAction = async () => {
 // deletePostAction deletes a post with the given ID
 export const deletePostAction = async (postId: number) => {
   try {
-    const response = await axios.delete(`http://127.0.0.1:3000/api/post/${postId}`);
+    const response = await axios.delete(
+      `http://127.0.0.1:3000/api/post/${postId}`
+    );
     console.log("Post deleted:", response.data);
     return {
       message: "Post deleted successfully",
@@ -200,17 +200,23 @@ export const deletePostAction = async (postId: number) => {
 };
 
 // updatePostAction updates a post with the given form data
-export const updatePostAction = async (prevState: unknown, formData: FormData) => {
+export const updatePostAction = async (
+  prevState: unknown,
+  formData: FormData
+) => {
   try {
     console.log("FormData Content:", formData);
     const rawData = Object.fromEntries(formData);
     const postId = rawData.id;
     console.log("Updating post with ID:", postId);
-    const response = await axios.put(`http://127.0.0.1:3000/api/post/${postId}`, {
-      title: rawData.title,
-      content: rawData.content,
-      category: rawData.category,
-    });
+    const response = await axios.put(
+      `http://127.0.0.1:3000/api/post/${postId}`,
+      {
+        title: rawData.title,
+        content: rawData.content,
+        category: rawData.category,
+      }
+    );
     console.log("Post updated:", response.data);
     return {
       message: "Post updated successfully",
@@ -228,7 +234,9 @@ export const updatePostAction = async (prevState: unknown, formData: FormData) =
 // fetchPostById fetches a single post by its ID
 export const fetchPostById = async (postId: number) => {
   try {
-    const response = await axios.get(`http://127.0.0.1:3000/api/post/${postId}`);
+    const response = await axios.get(
+      `http://127.0.0.1:3000/api/post/${postId}`
+    );
     const post = response.data;
     return post;
   } catch (error) {
@@ -237,6 +245,19 @@ export const fetchPostById = async (postId: number) => {
   }
 };
 
+// Fetch posts by category
+export const fetchPostByCategory = async (category: string) => {
+  try {
+    const allPosts = await fetchPostsAction();
+    const filteredPosts = allPosts.filter(
+      (post: { category: string }) => post.category === category
+    );
+    return filteredPosts;
+  } catch (error) {
+    console.error("Error fetching posts by category:", error);
+    return [];
+  }
+};
 //Check if post's user_id matches the current user's ID
 export const isPostOwner = async (postId: number) => {
   try {
@@ -270,7 +291,9 @@ export const fetchCommentsAction = async () => {
 export const fetchCommentsById = async (postId: number) => {
   try {
     const allComments = await fetchCommentsAction();
-    const postComments = allComments.filter((comment: { post_id: number }) => comment.post_id === Number(postId));
+    const postComments = allComments.filter(
+      (comment: { post_id: number }) => comment.post_id === Number(postId)
+    );
     return postComments;
   } catch (error) {
     console.error("Error fetching comments by post ID:", error);
@@ -290,5 +313,40 @@ export const deleteCommentAction = async (commentId: number) => {
     return {
       message: error instanceof Error ? error.message : "An error occurred",
     };
+  }
+};
+
+// Create a new comment
+export const createCommentAction = async (
+  prevState: unknown,
+  formData: FormData
+) => {
+  const postID = Object.fromEntries(formData).post_id;
+  try {
+    console.log(
+      "The try block is running, the action is actually being submitted. This is the createCommentAction"
+    );
+    const user = await currentUser();
+    const databaseUser = await fetchProfile();
+    if (!user) throw new Error("Please login to create a comment");
+
+    const rawData = Object.fromEntries(formData);
+    console.log("Raw Data:", rawData); // Log the raw data for debugging
+    console.log(databaseUser);
+    const response = await axios.post("http://127.0.0.1:3000/api/comment", {
+      user_id: databaseUser.ID,
+      post_id: Number(rawData.post_id),
+      content: rawData.content,
+    });
+    console.log("Comment created:", response.data);
+    return {
+      message: "Comment created successfully",
+    };
+  } catch (error) {
+    return {
+      message: error instanceof Error ? error.message : "An error occurred",
+    };
+  } finally {
+    redirect(`/posts/view/${postID}`);
   }
 };

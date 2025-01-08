@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 
 type CommentCardProps = {
   content: string;
