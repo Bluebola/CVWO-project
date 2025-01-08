@@ -75,7 +75,7 @@ export const updateProfileAction = async (
   }
 };
 
-const getAuthUser = async () => {
+export const getAuthUser = async () => {
   const user = await currentUser();
   if (!user) throw new Error("You must be logged in to access this route");
   if (!user.privateMetadata.hasProfile) {
@@ -275,5 +275,20 @@ export const fetchCommentsById = async (postId: number) => {
   } catch (error) {
     console.error("Error fetching comments by post ID:", error);
     throw new Error("Failed to fetch comments");
+  }
+};
+
+// Delete a comment by its ID
+export const deleteCommentAction = async (commentId: number) => {
+  try {
+    await axios.delete(`http://127.0.0.1:3000/api/comment/${commentId}`);
+    return {
+      message: "Comment deleted successfully",
+    };
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    return {
+      message: error instanceof Error ? error.message : "An error occurred",
+    };
   }
 };

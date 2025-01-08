@@ -7,5 +7,6 @@ type Comment struct {
 	Content   string    `json:"content" gorm:"type:text;not null"`
 	PostID    uint      `json:"post_id" gorm:"not null"` // Foreign key to Post
 	UserID    uint      `json:"user_id" gorm:"not null"` // Foreign key to User
+	User      User      `json:"user" gorm:"foreignKey:UserID;references:ID"`
 	CreatedAt time.Time `json:"created_at" gorm:"autoCreateTime"`
 }

@@ -16,7 +16,7 @@ func CreateComment(c *fiber.Ctx) error {
 	}
 
 	var user models.User
-	// Find the user with the ID specified in the comment
+	// User Validation: Ensures that the UserID specified in the comment corresponds to an existing user in the database.
 	if err := database.Database.Db.First(&user, comment.UserID).Error; err != nil {
 		return c.Status(400).JSON(fiber.Map{
 			"error": "User not found. You need to enter a valid user ID to create the comment.",
@@ -24,7 +24,7 @@ func CreateComment(c *fiber.Ctx) error {
 	}
 
 	var post models.Post
-	// Find the post with the ID specified in the comment
+	// Post Validation: Ensures that the PostID specified in the comment corresponds to an existing post in the database.
 	if err := database.Database.Db.First(&post, comment.PostID).Error; err != nil {
 		return c.Status(400).JSON(fiber.Map{
 			"error": "Post not found. You need to enter a valid post ID to create the comment.",
@@ -46,8 +46,8 @@ func CreateComment(c *fiber.Ctx) error {
 func GetComments(c *fiber.Ctx) error {
 	var comments []models.Comment
 
-	// Find all comments in the database
-	if err := database.Database.Db.Find(&comments).Error; err != nil {
+	// Find all comments in the database and preload the User information
+	if err := database.Database.Db.Preload("User").Find(&comments).Error; err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error": "Failed to retrieve comments",
 		})

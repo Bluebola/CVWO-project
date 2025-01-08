@@ -10,7 +10,7 @@ async function UserPosts() {
   if (posts.length === 0) {
     return (
       <RequireProfile>
-        <div >
+        <div>
           <h1>Users Posts</h1>
           <div className="mt-8">
             <p>You have not posted anything yet. Create a post now!</p>
@@ -28,7 +28,11 @@ async function UserPosts() {
   return (
     <RequireProfile>
       <div>
-        <h1>Users Posts</h1>
+        <h1>Welcome, {name}! Here are your posts: </h1>
+        <p className="text-xs text-gray-500 mt-2">
+          Click on the title to view post comments.
+        </p>
+
         <ul>
           {posts.map(
             (post: {

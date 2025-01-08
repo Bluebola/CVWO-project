@@ -11,6 +11,7 @@ import Link from "next/link";
 import { FaRegEdit } from "react-icons/fa";
 import { PiLineVerticalLight } from "react-icons/pi";
 import DeleteButton from "./DeleteButton";
+import { Separator } from "../ui/separator";
 type PostCardProps = {
   id: number;
   title: string;
@@ -29,7 +30,7 @@ function UserPostCard({
   comment_count,
 }: PostCardProps) {
   return (
-    <Card className="transition-colors duration-200 hover:bg-gray-100 my-4">
+    <Card className="transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 my-4">
       <CardHeader className="hover:underline">
         <Link href={`/posts/view/${id}`}>
           <CardTitle className="hover:underline">{title}</CardTitle>{" "}
@@ -41,7 +42,7 @@ function UserPostCard({
       <CardContent>
         <p>{content}</p>
       </CardContent>
-      <div className="border-b border-gray-200 mb-2"></div>
+      <Separator className="my-4" />
       <CardFooter className="mt-5">
         <CardDescription>
           <p>Posted by: {username}</p>

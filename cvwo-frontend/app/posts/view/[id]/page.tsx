@@ -3,13 +3,14 @@ import {
   isPostOwner,
   fetchPostById,
   fetchProfileByUserID,
+  fetchProfile,
 } from "@/utils/actions";
 import PostCard from "@/components/card/PostCard";
 import UserPostCard from "@/components/card/UserPostCard";
 import CommentCard from "@/components/card/CommentCard";
+import UserCommentCard from "@/components/card/UserCommentCard";
 import RequireProfile from "@/components/requireProfile/RequireProfile";
 import { fetchCommentsById } from "@/utils/actions";
-import { fetchCommentsAction } from "@/utils/actions";
 interface UpdatePostProps {
   params: {
     id: number;
@@ -18,7 +19,10 @@ interface UpdatePostProps {
 
 async function PostPage({ params }: UpdatePostProps) {
   const { id } = await params;
+  //obtain currentUser - to check if user is owner of comment
+  const currentUser = await fetchProfile();
   const post = await fetchPostById(id);
+  // check if user is owner of post
   const isOwner = await isPostOwner(id);
   const comments = await fetchCommentsById(id);
   const user = await fetchProfileByUserID(post.user_id);
@@ -50,13 +54,26 @@ async function PostPage({ params }: UpdatePostProps) {
       <div>Comments: </div>
       <div>
         {comments.map(
-          (comment: { id: number; content: string; username: string }) => (
-            <CommentCard
-              key={comment.id}
-              content={comment.content}
-              username={comment.username}
-            />
-          )
+          (comment: {
+            id: number;
+            content: string;
+            user: { ID: number; first_name: string; last_name: string };
+          }) => {
+            return comment.user.ID === Number(currentUser.ID) ? (
+              <UserCommentCard
+                key={comment.id}
+                commentId={comment.id}
+                content={comment.content}
+                username={`${comment.user.first_name} ${comment.user.last_name}`}
+              />
+            ) : (
+              <CommentCard
+                key={comment.id}
+                content={comment.content}
+                username={`${comment.user.first_name} ${comment.user.last_name}`}
+              />
+            );
+          }
         )}
       </div>
     </RequireProfile>
