@@ -12,7 +12,7 @@ import {
 const name = "category";
 
 function CategoriesSelector({ defaultValue }: { defaultValue?: string }) {
-  const [selectedCategory, setSelectedCategory] = useState(defaultValue || "");
+  const setSelectedCategory = useState(defaultValue || "")[1];
   const router = useRouter();
 
   const handleSelectChange = (value: string) => {

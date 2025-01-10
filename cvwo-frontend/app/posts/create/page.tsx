@@ -7,7 +7,7 @@ import CategoriesInput from "@/components/form/CategoriesInput";
 function CreatePost() {
   return (
     <RequireProfile>
-      <div>Create your posts here</div>
+      <div className="mb-6">Enter your post&apos;s Title, Content and Category to create a post.</div>
       <FormContainer action={createPostAction}>
         <FormInput type="text" name="title" label="Title" />
         <FormInput type="textarea" name="content" label="Content" />

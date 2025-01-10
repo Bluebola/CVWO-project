@@ -22,6 +22,7 @@ async function UserPosts() {
       </RequireProfile>
     );
   }
+  
   const user = await fetchProfileByUserID(posts[0].user_id);
   const name = user.first_name + " " + user.last_name;
 

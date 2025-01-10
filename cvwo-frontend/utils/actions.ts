@@ -106,6 +106,28 @@ export const fetchProfile = async () => {
   }
 };
 
+export const fetchProfileForHome = async () => {
+  const user = await currentUser();
+  if (!user) {return null;}
+  try {
+    const response = await axios.get("http://127.0.0.1:3000/api/user");
+    const users = response.data;
+
+    // Find the user with the matching clerk_id
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const userProfile = users.find((u: any) => u.clerk_id === user.id);
+
+    if (!userProfile) {
+      throw new Error("Profile not found");
+    }
+
+    return userProfile;
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    throw new Error("Failed to fetch profile");
+  }
+};
+
 export const fetchProfileByUserID = async (userID: string | number) => {
   try {
     const response = await axios.get(

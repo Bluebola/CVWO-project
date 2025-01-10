@@ -6,14 +6,8 @@ const isProtectedRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
-    const authObject = await auth();
-    if (isProtectedRoute(req)) {
-      if (!authObject.userId) {
-        throw new Error('Unauthorized access');
-      }
-      
-    }
-  });
+  if (isProtectedRoute(req)) await auth.protect()
+})
   
   export const config = {
     matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],

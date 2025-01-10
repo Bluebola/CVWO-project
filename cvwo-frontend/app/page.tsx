@@ -11,6 +11,7 @@ async function HomePage({ searchParams }: { searchParams: { category: string } }
         <div className="flex items-center space-x-2">
           <IoHome className="w-6 h-6" />
           <h1 className="text-3xl">Homepage</h1>
+          
         </div>
         <div className="flex items-center space-x-2">
           <p className="text-xs text-gray-500 mr-1">Select Category:</p>
