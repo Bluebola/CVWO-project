@@ -78,6 +78,7 @@ export const updateProfileAction = async (
         // Add other fields as necessary
       }
     );
+    console.log("Profile updated:", response.data);
     revalidatePath("/profile");
     return { message: "Profile updated successfully" };
   } catch (error) {
