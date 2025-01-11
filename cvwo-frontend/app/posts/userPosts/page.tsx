@@ -5,6 +5,7 @@ import UserPostCard from "@/components/card/UserPostCard";
 import { fetchProfileByUserID } from "@/utils/actions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import CreatePostButton from "@/components/home/CreatePostButton";
 async function UserPosts() {
   const posts = await fetchUserPostAction();
   if (posts.length === 0) {
@@ -35,7 +36,7 @@ async function UserPosts() {
         </p>
 
         <ul>
-          {posts.map(
+          {posts.reverse().map(
             (post: {
               id: number;
               title: string;
@@ -58,6 +59,8 @@ async function UserPosts() {
           )}
         </ul>
       </div>
+      <CreatePostButton />
+
     </RequireProfile>
   );
 }

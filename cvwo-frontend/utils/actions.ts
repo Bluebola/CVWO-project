@@ -1,13 +1,14 @@
 "use server";
-// import { profileSchema, propertySchema } from "./schemas";
-// import db from "./db";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import axios from "axios";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-// import { validateWithZodSchema } from "./schemas";
-// import { imageSchema } from "./schemas";
-// import { uploadImage } from "./supabase";
+import { commentSchema, postSchema, profileSchema } from "./schemas";
+import { ZodError } from "zod";
+
+const axiosInstance = axios.create({
+  baseURL: "http://127.0.0.1:3000/api", // Replace with your base URL
+});
 
 export const createProfileAction = async (
   prevState: unknown,
@@ -21,12 +22,18 @@ export const createProfileAction = async (
     if (!user) throw new Error("Please login to create a profile");
     const clerk = await clerkClient();
     const rawData = Object.fromEntries(formData);
-    //   const validatedFields = validateWithZodSchema(profileSchema, rawData);
-    const response = await axios.post("http://127.0.0.1:3000/api/user", {
+    // Validate rawData using Zod
+    const validatedFields = profileSchema.parse({
+      firstName: rawData.first_name,
+      lastName: rawData.last_name,
+    });
+
+    // Make API request
+    const response = await axiosInstance.post("/user", {
       clerk_id: user.id,
       email: user.emailAddresses[0].emailAddress,
-      first_name: rawData.first_name,
-      last_name: rawData.last_name,
+      first_name: validatedFields.firstName,
+      last_name: validatedFields.lastName,
     });
     console.log("User created:", response.data);
     await clerk.users.updateUserMetadata(user.id, {
@@ -38,6 +45,10 @@ export const createProfileAction = async (
       message: "Profile created successfully",
     };
   } catch (error) {
+    if (error instanceof ZodError) {
+      const errorMessages = error.errors.map((err) => err.message);
+      return { message: errorMessages.join(", ") };
+    }
     return {
       message: error instanceof Error ? error.message : "An error occurred",
     };
@@ -53,22 +64,27 @@ export const updateProfileAction = async (
   const user = await currentUser();
   if (!user) throw new Error("Please login to update your profile");
   const databaseUser = await fetchProfile();
-  console.log("Database user:", databaseUser);
   try {
     const rawData = Object.fromEntries(formData);
-    const response = await axios.put(
-      `http://127.0.0.1:3000/api/user/${databaseUser.ID}`,
+    const validatedFields = profileSchema.parse({
+      firstName: rawData.first_name,
+      lastName: rawData.last_name,
+    });
+    const response = await axiosInstance.put(
+      `/user/${databaseUser.ID}`,
       {
-        first_name: rawData.first_name,
-        last_name: rawData.last_name,
+        first_name: validatedFields.firstName,
+        last_name: validatedFields.lastName,
         // Add other fields as necessary
       }
     );
-    console.log("User updated:", response.data);
-
     revalidatePath("/profile");
     return { message: "Profile updated successfully" };
   } catch (error) {
+    if (error instanceof ZodError) {
+      const errorMessages = error.errors.map((err) => err.message);
+      return { message: errorMessages.join(", ") };
+    }
     return {
       message: error instanceof Error ? error.message : "An error occurred",
     };
@@ -88,7 +104,7 @@ export const fetchProfile = async () => {
   const user = await getAuthUser();
 
   try {
-    const response = await axios.get("http://127.0.0.1:3000/api/user");
+    const response = await axiosInstance.get("/user");
     const users = response.data;
 
     // Find the user with the matching clerk_id
@@ -108,9 +124,11 @@ export const fetchProfile = async () => {
 
 export const fetchProfileForHome = async () => {
   const user = await currentUser();
-  if (!user) {return null;}
+  if (!user) {
+    return null;
+  }
   try {
-    const response = await axios.get("http://127.0.0.1:3000/api/user");
+    const response = await axiosInstance.get("/user");
     const users = response.data;
 
     // Find the user with the matching clerk_id
@@ -130,8 +148,8 @@ export const fetchProfileForHome = async () => {
 
 export const fetchProfileByUserID = async (userID: string | number) => {
   try {
-    const response = await axios.get(
-      `http://127.0.0.1:3000/api/user/${userID}`
+    const response = await axiosInstance.get(
+      `/user/${userID}`
     );
     const userProfile = response.data;
     return userProfile;
@@ -154,9 +172,16 @@ export const createPostAction = async (
     const databaseUser = await fetchProfile();
     const rawData = Object.fromEntries(formData);
     // console.log("Raw data:", rawData);
-    const response = await axios.post("http://127.0.0.1:3000/api/post", {
+
+    // Validate the form data
+    const validatedFields = postSchema.parse({
       title: rawData.title,
       content: rawData.content,
+    });
+
+    const response = await axiosInstance.post("/post", {
+      title: validatedFields.title,
+      content: validatedFields.content,
       date_time: new Date().toISOString(), // Assuming the server will handle the correct format
       category: rawData.category,
       user_id: databaseUser.ID,
@@ -168,6 +193,11 @@ export const createPostAction = async (
       message: "Post created successfully",
     };
   } catch (error) {
+    //if it is an error from validation, return this error message instead.
+    if (error instanceof ZodError) {
+      const errorMessages = error.errors.map((err) => err.message);
+      return { message: errorMessages.join(", ") };
+    }
     return {
       message: error instanceof Error ? error.message : "An error occurred",
     };
@@ -177,7 +207,7 @@ export const createPostAction = async (
 export const fetchPostsAction = async () => {
   try {
     // console.log("try block is runnindwag!!!!!!!!!!!!!!!");
-    const response = await axios.get("http://127.0.0.1:3000/api/post");
+    const response = await axiosInstance.get("/post");
     const posts = response.data;
     return posts;
   } catch (error) {
@@ -206,8 +236,8 @@ export const fetchUserPostAction = async () => {
 // deletePostAction deletes a post with the given ID
 export const deletePostAction = async (postId: number) => {
   try {
-    const response = await axios.delete(
-      `http://127.0.0.1:3000/api/post/${postId}`
+    const response = await axiosInstance.delete(
+      `/post/${postId}`
     );
     console.log("Post deleted:", response.data);
     return {
@@ -227,15 +257,20 @@ export const updatePostAction = async (
   formData: FormData
 ) => {
   try {
-    console.log("FormData Content:", formData);
+    // console.log("FormData Content:", formData);
     const rawData = Object.fromEntries(formData);
     const postId = rawData.id;
-    console.log("Updating post with ID:", postId);
-    const response = await axios.put(
-      `http://127.0.0.1:3000/api/post/${postId}`,
+    // console.log("Updating post with ID:", postId);
+
+    const validatedFields = postSchema.parse({
+      title: rawData.title,
+      content: rawData.content,
+    });
+    const response = await axiosInstance.put(
+      `/post/${postId}`,
       {
-        title: rawData.title,
-        content: rawData.content,
+        title: validatedFields.title,
+        content: validatedFields.content,
         category: rawData.category,
       }
     );
@@ -244,7 +279,10 @@ export const updatePostAction = async (
       message: "Post updated successfully",
     };
   } catch (error) {
-    console.error("Error updating post:", error);
+    if (error instanceof ZodError) {
+      const errorMessages = error.errors.map((err) => err.message);
+      return { message: errorMessages.join(", ") };
+    }
     return {
       message: error instanceof Error ? error.message : "An error occurred",
     };
@@ -256,8 +294,8 @@ export const updatePostAction = async (
 // fetchPostById fetches a single post by its ID
 export const fetchPostById = async (postId: number) => {
   try {
-    const response = await axios.get(
-      `http://127.0.0.1:3000/api/post/${postId}`
+    const response = await axiosInstance.get(
+      `/post/${postId}`
     );
     const post = response.data;
     return post;
@@ -300,7 +338,7 @@ export const isPostOwner = async (postId: number) => {
 // Get all comments for a post
 export const fetchCommentsAction = async () => {
   try {
-    const response = await axios.get(`http://127.0.0.1:3000/api/comment`);
+    const response = await axiosInstance.get(`/comment`);
     const comments = response.data;
     return comments;
   } catch (error) {
@@ -326,7 +364,7 @@ export const fetchCommentsById = async (postId: number) => {
 // Delete a comment by its ID
 export const deleteCommentAction = async (commentId: number) => {
   try {
-    await axios.delete(`http://127.0.0.1:3000/api/comment/${commentId}`);
+    await axiosInstance.delete(`/comment/${commentId}`);
     return {
       message: "Comment deleted successfully",
     };
@@ -343,7 +381,7 @@ export const createCommentAction = async (
   prevState: unknown,
   formData: FormData
 ) => {
-  const postID = Object.fromEntries(formData).post_id;
+  // const postID = Object.fromEntries(formData).post_id;
   try {
     console.log(
       "The try block is running, the action is actually being submitted. This is the createCommentAction"
@@ -353,22 +391,28 @@ export const createCommentAction = async (
     if (!user) throw new Error("Please login to create a comment");
 
     const rawData = Object.fromEntries(formData);
-    console.log("Raw Data:", rawData); // Log the raw data for debugging
-    console.log(databaseUser);
-    const response = await axios.post("http://127.0.0.1:3000/api/comment", {
+    // console.log("Raw Data:", rawData); // Log the raw data for debugging
+    // console.log(databaseUser);
+    // Validate the form data
+    const validatedFields = commentSchema.parse({
+      content: rawData.content,
+    });
+    const response = await axiosInstance.post("/comment", {
       user_id: databaseUser.ID,
       post_id: Number(rawData.post_id),
-      content: rawData.content,
+      content: validatedFields.content,
     });
     console.log("Comment created:", response.data);
     return {
       message: "Comment created successfully",
     };
   } catch (error) {
+    if (error instanceof ZodError) {
+      const errorMessages = error.errors.map((err) => err.message);
+      return { message: errorMessages.join(", ") };
+    }
     return {
       message: error instanceof Error ? error.message : "An error occurred",
     };
-  } finally {
-    redirect(`/posts/view/${postID}`);
-  }
+  } 
 };
