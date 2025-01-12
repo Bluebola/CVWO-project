@@ -77,6 +77,7 @@ func GetPosts(c *fiber.Ctx) error {
 		var commentCount int64
 		database.Database.Db.Model(&models.Comment{}).Where("post_id = ?", posts[i].ID).Count(&commentCount)
 		posts[i].CommentCount = int(commentCount)
+
 	}
 
 	return c.Status(200).JSON(posts)
