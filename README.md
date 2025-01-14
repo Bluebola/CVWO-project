@@ -16,22 +16,32 @@ As this application uses clerk auth, please create a Clerk account to get your o
 
 
 Setup Steps:
-1. Navigate to your desired folder 
-2. Clone the repo using _https://github.com/Bluebola/CVWO-project.git_
-3. Navigate to the frontend folder using _cd cvwo-frontend_
-4. Run _npm install_ to install the dependencies
-5. Add a .env.local file to the cvwo-frontend folder. Include your:
+1. Navigate to your desired folder
+   
+3. Clone the repo using _https://github.com/Bluebola/CVWO-project.git_
+   
+4. Navigate to the frontend folder using _cd cvwo-frontend_
+   
+5. Run _npm install_ to install the dependencies
+   
+6. Add a .env.local file to the cvwo-frontend folder. Include your:
+   
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = ************* (From clerk)
+
 CLERK_SECRET_KEY = ******************* (From clerk)
+
 NEXT_PUBLIC_API_BASE_URL= **************** (see the port run by the backend)
+
 7. If an error occurs, run _npm install --legacy-peer-deps_. This error may occur due to NextJs Version 15 being newly released.
 8. Return to the home directory and navigate to the backend folder using _cd backend_
-9. Run go mod tidy to install the nackend dependencies at one go, or if an error occurs run it one by one ->
-go get "gorm.io/driver/sqlite"
+
+10. Run _go mod tidy_ to install the nackend dependencies at one go, or if an error occurs run it one by one ->
+_go get "gorm.io/driver/sqlite"
 go get "gorm.io/gorm"
 go get "github.com/gofiber/fiber/v2"
 go install github.com/air-verse/air@latest
-air init
+air init_
+
 
 Running App Steps:
 1. Navigate to the backend folder
