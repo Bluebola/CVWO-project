@@ -1,17 +1,26 @@
-**Name:** Timothy Lo
+**Name:** 
+Timothy Lo
 
 **Description:**
+
 This is a monorepo forum website I built for the NUS CVWO winter assignment submission. You can create, read, update and delete posts. 
+
 There is account-based authentication, user profile creation and users are able to view and comment on other user's posts. 
+
 This web application has its frontend written in Next.js and Typescript, and it is hosted on Vercel. The backend is written in Golang using the GORM ORM and Fiber, and is hosted using fly.io. 
 
 **Setup Instructions:**
 Prerequisites:
 Please ensure you have Go installed on your machine, as well as Node JS to use npm. 
+
 The backend of this application uses SQLite in a local database file, hence please install SQLite as well. You can use this link:
+
 https://www.sqlite.org/download.html - download the sqlite-tools-win-x64-3480000.zip bundle file for Windows users.
+
 If you do not already have a C Compiler, please go to this link to install: https://code.visualstudio.com/docs/cpp/config-mingw#_prerequisites
+
 If you are unsure of how to download it, you can follow this very helpful video: https://www.youtube.com/watch?v=oC69vlWofJQ
+
 As this application uses clerk auth, please create a Clerk account to get your own API Keys.
 
 
