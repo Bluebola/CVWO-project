@@ -7,8 +7,8 @@ import { createCommentAction, fetchPostById } from "@/utils/actions";
 import Link from "next/link";
 
 
-async function CreateComments({ params }: { params: { id: string } }) {
-  const { id } = params;
+async function CreateComments({params}: {params: Promise<{ id: string }>}) {
+  const { id } = await params;
   const post = await fetchPostById(Number(id));
 
   return (
