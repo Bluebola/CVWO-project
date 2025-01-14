@@ -45,11 +45,11 @@ As this application uses clerk auth, please create a Clerk account to get your o
    
 5. Add a .env.local file to the cvwo-frontend folder. Include your:
    
-`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = ************* (From clerk)
+`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = *************` (From clerk)
 
-CLERK_SECRET_KEY = ******************* (From clerk)
+`CLERK_SECRET_KEY = ******************* `(From clerk)
 
-NEXT_PUBLIC_API_BASE_URL= **************** (see the port run by the backend)`
+`NEXT_PUBLIC_API_BASE_URL= **************** `(see the port run by the backend)
 
 6. If an error occurs, run `npm install --legacy-peer-deps`. This error may occur due to NextJs Version 15 being newly released.
 7. Return to the home directory and navigate to the backend folder using _cd backend_
