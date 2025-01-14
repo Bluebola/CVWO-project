@@ -25,8 +25,12 @@ const PostsContainer: React.FC<PostsContainerProps> = async ({ category }) => {
     };
     comment_count: number;
   };
-  const currentUser = await fetchProfileForHome();
-
+  let currentUser = null;
+  try {
+    currentUser = await fetchProfileForHome();
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+  }
   let posts = [];
 
   if (category === "All") {

@@ -5,6 +5,7 @@ import PostsContainer from "@/components/home/PostsContainer";
 async function HomePage({ searchParams }: { searchParams: { category: string } }) {
   const params = await searchParams;
   const category = params.category || "All";  
+  
   return (
     <div>
       <div className="flex items-center justify-between space-x-4">

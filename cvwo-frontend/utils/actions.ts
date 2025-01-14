@@ -7,7 +7,7 @@ import { commentSchema, postSchema, profileSchema } from "./schemas";
 import { ZodError } from "zod";
 
 const axiosInstance = axios.create({
-  baseURL: "http://127.0.0.1:3000/api", // Replace with your base URL
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL, // Use the environment variable
 });
 
 export const createProfileAction = async (
@@ -15,9 +15,9 @@ export const createProfileAction = async (
   formData: FormData
 ) => {
   try {
-    console.log(
-      "The try block is running, the action is actually being submitted."
-    );
+    // console.log(
+    //   "The try block is running, the action is actually being submitted."
+    // );
     const user = await currentUser();
     if (!user) throw new Error("Please login to create a profile");
     const clerk = await clerkClient();
@@ -70,14 +70,11 @@ export const updateProfileAction = async (
       firstName: rawData.first_name,
       lastName: rawData.last_name,
     });
-    const response = await axiosInstance.put(
-      `/user/${databaseUser.ID}`,
-      {
-        first_name: validatedFields.firstName,
-        last_name: validatedFields.lastName,
-        // Add other fields as necessary
-      }
-    );
+    const response = await axiosInstance.put(`/user/${databaseUser.ID}`, {
+      first_name: validatedFields.firstName,
+      last_name: validatedFields.lastName,
+      // Add other fields as necessary
+    });
     console.log("Profile updated:", response.data);
     revalidatePath("/profile");
     return { message: "Profile updated successfully" };
@@ -137,7 +134,12 @@ export const fetchProfileForHome = async () => {
     const userProfile = users.find((u: any) => u.clerk_id === user.id);
 
     if (!userProfile) {
-      throw new Error("Profile not found");
+      console.log(
+        "Profile not found, log thrown from fetchProfileForHome function"
+      );
+      return null;
+    } else {
+      console.log("Profile found, log thrown from fetchProfileForHome function");
     }
 
     return userProfile;
@@ -149,9 +151,7 @@ export const fetchProfileForHome = async () => {
 
 export const fetchProfileByUserID = async (userID: string | number) => {
   try {
-    const response = await axiosInstance.get(
-      `/user/${userID}`
-    );
+    const response = await axiosInstance.get(`/user/${userID}`);
     const userProfile = response.data;
     return userProfile;
   } catch (error) {
@@ -165,9 +165,9 @@ export const createPostAction = async (
   formData: FormData
 ) => {
   try {
-    console.log(
-      "The try block is running, the action is actually being submitted."
-    );
+    // console.log(
+    //   "The try block is running, the action is actually being submitted."
+    // );
     const user = await currentUser();
     if (!user) throw new Error("Please login to create a post");
     const databaseUser = await fetchProfile();
@@ -237,9 +237,7 @@ export const fetchUserPostAction = async () => {
 // deletePostAction deletes a post with the given ID
 export const deletePostAction = async (postId: number) => {
   try {
-    const response = await axiosInstance.delete(
-      `/post/${postId}`
-    );
+    const response = await axiosInstance.delete(`/post/${postId}`);
     console.log("Post deleted:", response.data);
     return {
       message: "Post deleted successfully",
@@ -267,14 +265,11 @@ export const updatePostAction = async (
       title: rawData.title,
       content: rawData.content,
     });
-    const response = await axiosInstance.put(
-      `/post/${postId}`,
-      {
-        title: validatedFields.title,
-        content: validatedFields.content,
-        category: rawData.category,
-      }
-    );
+    const response = await axiosInstance.put(`/post/${postId}`, {
+      title: validatedFields.title,
+      content: validatedFields.content,
+      category: rawData.category,
+    });
     console.log("Post updated:", response.data);
     return {
       message: "Post updated successfully",
@@ -295,9 +290,7 @@ export const updatePostAction = async (
 // fetchPostById fetches a single post by its ID
 export const fetchPostById = async (postId: number) => {
   try {
-    const response = await axiosInstance.get(
-      `/post/${postId}`
-    );
+    const response = await axiosInstance.get(`/post/${postId}`);
     const post = response.data;
     return post;
   } catch (error) {
@@ -415,5 +408,5 @@ export const createCommentAction = async (
     return {
       message: error instanceof Error ? error.message : "An error occurred",
     };
-  } 
+  }
 };
