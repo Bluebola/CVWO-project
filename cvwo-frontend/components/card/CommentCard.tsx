@@ -10,7 +10,7 @@ function CommentCard({ content, username }: CommentCardProps) {
   return (
     <Card className="transition-colors duration-200 hover:bg-gray-100  dark:hover:bg-gray-800 my-4">
       <CardHeader>
-        <CardDescription>Comment: This is normal comment card </CardDescription>
+        <CardDescription>Comment:</CardDescription>
       </CardHeader>
       <CardContent>
         <p>{content}</p>

@@ -25,6 +25,7 @@ async function PostPage({params}: {params: Promise<{ id: number }>}) {
   const comments = await fetchCommentsById(id);
   const user = await fetchProfileByUserID(post.user_id);
   const name = user.first_name + " " + user.last_name;
+  
   return (
     <RequireProfile>
       <div>Post: </div>
@@ -44,7 +45,7 @@ async function PostPage({params}: {params: Promise<{ id: number }>}) {
             title={post.title}
             content={post.content}
             category={post.category}
-            username={post.username}
+            username={name}
             comment_count={post.comment_count}
           />
         )}

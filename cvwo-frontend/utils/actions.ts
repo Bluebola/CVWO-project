@@ -15,9 +15,9 @@ export const createProfileAction = async (
   formData: FormData
 ) => {
   try {
-    // console.log(
-    //   "The try block is running, the action is actually being submitted."
-    // );
+    console.log(
+      "create profile action is running, the action is actually being submitted."
+    );
     const user = await currentUser();
     if (!user) throw new Error("Please login to create a profile");
     const clerk = await clerkClient();
@@ -35,7 +35,7 @@ export const createProfileAction = async (
       first_name: validatedFields.firstName,
       last_name: validatedFields.lastName,
     });
-    console.log("User created:", response.data);
+    console.log("User IS BEING created:", response.data);
     await clerk.users.updateUserMetadata(user.id, {
       privateMetadata: {
         hasProfile: true,
@@ -99,7 +99,7 @@ export const getAuthUser = async () => {
 };
 
 export const hasUserProfile = async (): Promise<boolean> => {
-  console.log("hasUserProfile function is running");
+  // console.log("hasUserProfile function is running");
   const user = await currentUser();
   if (!user) {
     return false;
@@ -172,6 +172,7 @@ export const fetchProfileForHome = async () => {
 
 export const fetchProfileByUserID = async (userID: string | number) => {
   try {
+    console.log("fetchProfileByUserID function is running");
     const response = await axiosInstance.get(`/user/${userID}`);
     const userProfile = response.data;
     return userProfile;
