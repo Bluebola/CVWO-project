@@ -1,5 +1,5 @@
 
-import { createProfileAction } from "@/utils/actions";
+import { createProfileAction, hasUserProfile } from "@/utils/actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import FormInput from "@/components/form/FormInput";
@@ -7,7 +7,11 @@ import FormContainer from "@/components/form/FormContainer";
 import { SubmitButton } from "@/components/form/Button";
 async function CreateProfile() {
   const user = await currentUser();
-  if (user && user.privateMetadata.hasProfile) {
+  // if (user && user.privateMetadata.hasProfile) {
+  //   redirect("/");
+  // }
+  const profileExists = await hasUserProfile();
+  if (user && profileExists) {
     redirect("/");
   }
   return (

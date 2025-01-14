@@ -98,6 +98,27 @@ export const getAuthUser = async () => {
   return user;
 };
 
+export const hasUserProfile = async (): Promise<boolean> => {
+  console.log("hasUserProfile function is running");
+  const user = await currentUser();
+  if (!user) {
+    return false;
+  }
+
+  try {
+    const response = await axiosInstance.get("/user");
+    const users = response.data;
+
+    // Find the user with the matching clerk_id
+    const userProfile = users.find((u: any) => u.clerk_id === user.id);
+
+    return !!userProfile; // Return true if userProfile exists, otherwise false
+  } catch (error) {
+    console.error("Error checking user profile:", error);
+    return false;
+  }
+};
+
 export const fetchProfile = async () => {
   const user = await getAuthUser();
 
