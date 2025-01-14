@@ -5,13 +5,9 @@ import { SubmitButton } from "@/components/form/Button";
 import CategoriesInput from "@/components/form/CategoriesInput";
 import RequireProfile from "@/components/requireProfile/RequireProfile";
 import { updatePostAction } from "@/utils/actions";
-interface UpdatePostProps {
-  params: {
-    id: number;
-  };
-}
 
-export default async function UpdatePost({ params }: UpdatePostProps) {
+
+export default async function UpdatePost({params}: {params: Promise<{ id: string }>}) {
   const { id } = await params;
 
   return (
