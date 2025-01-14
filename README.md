@@ -13,7 +13,7 @@ This is a monorepo forum website I built for the NUS CVWO winter assignment subm
 
 There is account-based authentication, user profile creation and users are able to view and comment on other user's posts. 
 
-This web application has its frontend written in Next.js and Typescript, and it is hosted on Vercel. The backend is written in Golang using the GORM ORM and Fiber, and is hosted using fly.io. 
+This web application has its frontend written in Next.js and Typescript, and it is hosted on Vercel. The backend is written in Golang using the GORM ORM and Fiber, and is hosted on fly.io. 
 
 
 
