@@ -1,3 +1,7 @@
+Link to deployed app: https://cvwo-forum.vercel.app/
+
+
+
 **Name:** 
 Timothy Lo
 
@@ -18,7 +22,7 @@ This web application has its frontend written in Next.js and Typescript, and it 
 Prerequisites:
 Please ensure you have Go installed on your machine, as well as Node JS to use npm. 
 
-The backend of this application uses SQLite in a local database file, hence please install SQLite as well. You can use this link:
+The backend of this application uses SQLite in a local database file, hence please install SQLite as well and add it to your computer's PATH. You can use this link:
 
 https://www.sqlite.org/download.html - download the sqlite-tools-win-x64-3480000.zip bundle file for Windows users.
 
@@ -50,11 +54,16 @@ NEXT_PUBLIC_API_BASE_URL= **************** (see the port run by the backend)
 7. If an error occurs, run _npm install --legacy-peer-deps_. This error may occur due to NextJs Version 15 being newly released.
 8. Return to the home directory and navigate to the backend folder using _cd backend_
 
-10. Run _go mod tidy_ to install the nackend dependencies at one go, or if an error occurs run it one by one ->
+10. Run _go mod tidy_ to install the backend dependencies at one go, or if an error occurs run it one by one ->
+    
 _go get "gorm.io/driver/sqlite"
+
 go get "gorm.io/gorm"
+
 go get "github.com/gofiber/fiber/v2"
+
 go install github.com/air-verse/air@latest
+
 air init_
 
 
