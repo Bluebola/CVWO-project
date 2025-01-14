@@ -2,7 +2,12 @@ import { Separator } from "@/components/ui/separator";
 import { IoHome } from "react-icons/io5";
 import CategoriesSelector from "@/components/home/CategoriesSelector";
 import PostsContainer from "@/components/home/PostsContainer";
-async function HomePage({ searchParams }: { searchParams: { category: string } }) {
+
+type HomePageProps = {
+  searchParams: Promise<{ category: string }>;
+};
+
+async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
   const category = params.category || "All";  
   
