@@ -45,11 +45,11 @@ As this application uses clerk auth, please create a Clerk account to get your o
    
 5. Add a .env.local file to the cvwo-frontend folder. Include your:
    
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = ************* (From clerk)
+`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = ************* (From clerk)
 
 CLERK_SECRET_KEY = ******************* (From clerk)
 
-NEXT_PUBLIC_API_BASE_URL= **************** (see the port run by the backend)
+NEXT_PUBLIC_API_BASE_URL= **************** (see the port run by the backend)`
 
 6. If an error occurs, run `npm install --legacy-peer-deps`. This error may occur due to NextJs Version 15 being newly released.
 7. Return to the home directory and navigate to the backend folder using _cd backend_
@@ -71,13 +71,13 @@ air init`
 ### Running App Steps:
 1. Navigate to the backend folder
 
-2. To run the backend, run _air_ for persistent, constant updating of backend data. Or, you can run _go run main.go_ for static data.
+2. To run the backend, run `air` for persistent, constant updating of backend data. Or, you can run `go run main.go` for static data.
    
 3. If the "Binary was compiled with 'CGO_ENABLED=0', go-sqlite3 requires cgo to work" error occurs when running, make sure you have a C compiler as stated above in the prerequisites.
    
 4. Navigate to the frontend folder
    
-5. To run the frontend, run _npm run dev_ to run the frontend NextJs Application.
+5. To run the frontend, run `npm run dev` to run the frontend NextJs Application.
 
 
 
