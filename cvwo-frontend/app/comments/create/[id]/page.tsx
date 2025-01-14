@@ -5,11 +5,9 @@ import RequireProfile from "@/components/requireProfile/RequireProfile";
 import { Button } from "@/components/ui/button";
 import { createCommentAction, fetchPostById } from "@/utils/actions";
 import Link from "next/link";
-type CreateCommentsProps = {
-  params: { id: string }; // Ensure params is an object with id
-};
 
-async function CreateComments({ params }: CreateCommentsProps) {
+
+async function CreateComments({ params }: { params: { id: string } }) {
   const { id } = params;
   const post = await fetchPostById(Number(id));
 
