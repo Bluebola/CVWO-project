@@ -19,7 +19,7 @@ This web application has its frontend written in Next.js and Typescript, and it 
 
 ## **Setup Instructions:**
 
-###**Prerequisites:
+### **Prerequisites:
 **
 Please ensure you have Go installed on your machine, as well as Node JS to use npm. 
 
