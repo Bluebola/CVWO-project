@@ -1,8 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { currentUser } from "@clerk/nextjs/server";
-import Link from "next/link";
 import React from "react";
-import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { fetchProfile, updateProfileAction } from "@/utils/actions";
 import RequireProfile from "@/components/requireProfile/RequireProfile";

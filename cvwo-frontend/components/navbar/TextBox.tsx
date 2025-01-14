@@ -1,5 +1,4 @@
 import React from 'react';
-import { Inter } from 'next/font/google';
 import { Lusitana } from 'next/font/google';
 
 const lusitana = Lusitana({ subsets: ['latin'], weight: ['400'] });
