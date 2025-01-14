@@ -39,9 +39,9 @@ As this application uses clerk auth, please create a Clerk account to get your o
    
 2. Clone the repo using _https://github.com/Bluebola/CVWO-project.git_
    
-3. Navigate to the frontend folder using _cd cvwo-frontend_
+3. Navigate to the frontend folder using `cd cvwo-frontend`
    
-4. Run _npm install_ to install the dependencies
+4. Run `npm install` to install the dependencies
    
 5. Add a .env.local file to the cvwo-frontend folder. Include your:
    
@@ -51,12 +51,12 @@ CLERK_SECRET_KEY = ******************* (From clerk)
 
 NEXT_PUBLIC_API_BASE_URL= **************** (see the port run by the backend)
 
-6. If an error occurs, run _npm install --legacy-peer-deps_. This error may occur due to NextJs Version 15 being newly released.
+6. If an error occurs, run `npm install --legacy-peer-deps`. This error may occur due to NextJs Version 15 being newly released.
 7. Return to the home directory and navigate to the backend folder using _cd backend_
 
-9. Run _go mod tidy_ to install the backend dependencies at one go, or if an error occurs run it one by one ->
+9. Run `go mod tidy` to install the backend dependencies at one go, or if an error occurs run it one by one ->
     
-_go get "gorm.io/driver/sqlite"
+`go get "gorm.io/driver/sqlite"
 
 go get "gorm.io/gorm"
 
@@ -64,7 +64,7 @@ go get "github.com/gofiber/fiber/v2"
 
 go install github.com/air-verse/air@latest
 
-air init_
+air init`
 
 
 
