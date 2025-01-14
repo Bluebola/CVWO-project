@@ -13,13 +13,9 @@ import RequireProfile from "@/components/requireProfile/RequireProfile";
 import { fetchCommentsById } from "@/utils/actions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-interface UpdatePostProps {
-  params: {
-    id: number;
-  };
-}
 
-async function PostPage({ params }: UpdatePostProps) {
+
+async function PostPage({params}: {params: Promise<{ id: number }>}) {
   const { id } = await params;
   //obtain currentUser - to check if user is owner of comment
   const currentUser = await fetchProfile();
