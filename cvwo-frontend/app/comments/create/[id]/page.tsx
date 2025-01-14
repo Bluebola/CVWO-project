@@ -6,9 +6,7 @@ import { Button } from "@/components/ui/button";
 import { createCommentAction, fetchPostById } from "@/utils/actions";
 import Link from "next/link";
 type CreateCommentsProps = {
-  params: {
-    id: number;
-  };
+  params: Promise<{ id: number }>; // Ensure params is a Promise
 };
 
 async function CreateComments({ params }: CreateCommentsProps) {
