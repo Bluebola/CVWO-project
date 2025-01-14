@@ -34,7 +34,7 @@ As this application uses clerk auth, please create a Clerk account to get your o
 
 
 
-# Setup Steps:
+#### Setup Steps:
 1. Navigate to your desired folder
    
 2. Clone the repo using _https://github.com/Bluebola/CVWO-project.git_
@@ -68,7 +68,7 @@ air init_
 
 
 
-# Running App Steps:
+#### Running App Steps:
 1. Navigate to the backend folder
 
 2. To run the backend, run _air_ for persistent, constant updating of backend data. Or, you can run _go run main.go_ for static data.
