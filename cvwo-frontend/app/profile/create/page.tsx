@@ -16,7 +16,7 @@ async function CreateProfile() {
   }
   return (
     <section>
-      <h1 className="text-2xl font-semibold mb-8 capitalize">Create a profile here!</h1>
+      <h1 className="text-2xl font-semibold mb-8 capitalize">Create your profile here!</h1>
       <p className="text-gray-500 text-sm">
         Please create a profile to be able to create, view and comment on posts.
       </p>

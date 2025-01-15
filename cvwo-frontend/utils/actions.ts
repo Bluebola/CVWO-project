@@ -41,6 +41,8 @@ export const createProfileAction = async (
         hasProfile: true,
       },
     });
+
+    revalidatePath("/profile/create");
     return {
       message: "Profile created successfully. You may now create, view, edit and comment on posts.",
     };
@@ -52,9 +54,7 @@ export const createProfileAction = async (
     return {
       message: error instanceof Error ? error.message : "An error occurred",
     };
-  } finally {
-    setTimeout(() => redirect("/"), 1500);
-  }
+  } 
 };
 
 export const updateProfileAction = async (
