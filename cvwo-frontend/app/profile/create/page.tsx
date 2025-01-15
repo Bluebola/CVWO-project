@@ -16,7 +16,7 @@ async function CreateProfile() {
   }
   return (
     <section>
-      <h1 className="text-2xl font-semibold mb-8 capitalize">new user</h1>
+      <h1 className="text-2xl font-semibold mb-8 capitalize">Create a profile to create, view and comment on posts.</h1>
       <div className="border p-8 rounded-md max-w-lg">
         <FormContainer action={createProfileAction}>
           <div className="grid gap-4 mt-4 ">

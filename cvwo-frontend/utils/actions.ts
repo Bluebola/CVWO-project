@@ -42,7 +42,7 @@ export const createProfileAction = async (
       },
     });
     return {
-      message: "Profile created successfully",
+      message: "Profile created successfully. You can now create, view and comment on posts.",
     };
   } catch (error) {
     if (error instanceof ZodError) {
@@ -52,9 +52,7 @@ export const createProfileAction = async (
     return {
       message: error instanceof Error ? error.message : "An error occurred",
     };
-  } finally {
-    redirect("/");
-  }
+  } 
 };
 
 export const updateProfileAction = async (
