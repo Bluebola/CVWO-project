@@ -45,8 +45,10 @@ As this application uses clerk auth, please create a Clerk account to get your o
 3. Navigate to the frontend folder using `cd cvwo-frontend`
    
 4. Run `npm install` to install the dependencies
-   
-5. Add a .env.local file to the cvwo-frontend folder. Include your:
+
+5. If an error occurs, run `npm install --legacy-peer-deps`. This error may occur due to NextJs Version 15 being newly released.
+
+6. Add a .env.local file to the cvwo-frontend folder. Include your:
    
 `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = *************` (From clerk)
 
@@ -54,7 +56,6 @@ As this application uses clerk auth, please create a Clerk account to get your o
 
 `NEXT_PUBLIC_API_BASE_URL= **************** `(see the port run by the backend)
 
-6. If an error occurs, run `npm install --legacy-peer-deps`. This error may occur due to NextJs Version 15 being newly released.
 7. Return to the home directory and navigate to the backend folder using _cd backend_
 
 9. Run `go mod tidy` to install the backend dependencies at one go, or if an error occurs run it one by one via these commands ->
