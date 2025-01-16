@@ -55,17 +55,17 @@ As this application uses clerk auth, please create a Clerk account to get your o
 6. If an error occurs, run `npm install --legacy-peer-deps`. This error may occur due to NextJs Version 15 being newly released.
 7. Return to the home directory and navigate to the backend folder using _cd backend_
 
-9. Run `go mod tidy` to install the backend dependencies at one go, or if an error occurs run it one by one ->
+9. Run `go mod tidy` to install the backend dependencies at one go, or if an error occurs run it one by one via these commands ->
     
-`go get "gorm.io/driver/sqlite"
+`go get "gorm.io/driver/sqlite"`
 
-go get "gorm.io/gorm"
+`go get "gorm.io/gorm"`
 
-go get "github.com/gofiber/fiber/v2"
+`go get "github.com/gofiber/fiber/v2"`
 
-go install github.com/air-verse/air@latest
+`go install github.com/air-verse/air@latest`
 
-air init`
+`air init`
 
 
 
