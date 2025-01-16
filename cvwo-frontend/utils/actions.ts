@@ -44,7 +44,7 @@ export const createProfileAction = async (
 
     revalidatePath("/profile/create");
     return {
-      message: "Profile created successfully. You may now create, view, edit and comment on posts.",
+      message: "Profile created successfully. You may now create, view, edit and comment on posts. Please navigate to the home page.",
     };
   } catch (error) {
     if (error instanceof ZodError) {
