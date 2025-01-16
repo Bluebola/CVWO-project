@@ -84,5 +84,64 @@ As this application uses clerk auth, please create a Clerk account to get your o
 
 
 
+## User Manual
+
+
+Getting Started:
+
+
+After clicking on the link (https://cvwo-forum.vercel.app) or following the user guide included in the github README to start the project locally, users would be brought to the home page where they can see different posts made by different users. This web-app is also made to be mobile-friendly.
+
+
+
+Sign up / Sign in:
+
+I used NextJs middleware to ensure that users who have not signed in would not be able to access any other pages in the web app until they have signed in. If they do navigate to another page via the browser search bar, they would automatically be routed to a clerk sign in page. Users can sign in and register via Google or Github, and once done they would be directed to a clerk user management page.
+Click the grey ‘cvwo-forum’ text on the upper left corner to progress to the home page.
+
+
+
+Navbar:
+
+Users can press the red button with the house icon on the top left to navigate to the home page. Users can toggle between light mode and dark mode using the toggle button on the top right. There is also a link dropdown button which can be used to navigate the forum’s different pages. If users have not signed in through Clerk, they would only see the login and register links. If they have signed in, the rest of the links would be available for them to select.
+
+
+
+Profile:
+
+
+Users are required to have a profile before they can create, edit and comment on posts. If users have not created a profile, they can create one at the user/profile/create page. Trying to create posts while not having a profile would cause the user to be redirected to the create profile page. If their profile has been created, navigating to the same profile page would only let them update their profile.
+
+
+
+Home page:
+
+
+At the home page, users can use the category select component on the top right to filter the posts via each post’s category. Only posts with the same category that was chosen will be displayed. Each post’s card component has a title which is a clickable link. If the post was made by the user themself, they would be able to edit and delete the post. If the post was made by someone else, they would not be able to do so.
+
+
+
+Your Posts:
+
+
+At the Your Posts page, users can view, edit and delete all the different posts they created.
+
+
+
+Create a Post:
+
+Users can create a post by entering their desired post title and content and then post it by clicking the Create Post button. If creation was successful, a pop-up would appear on the bottom right telling the user that it was successful.
+
+
+
+Comments:
+
+
+To comment and view other comments on a post, click on a post’s title. Users can comment on posts by clicking on the ‘Create Comment’ button which would bring them to a comment creation page. If a comment is made by the user themselves, they can delete their own comment. If the comment was made by someone else, the option to delete would not be there.
+
+
+
+
+
 
 
