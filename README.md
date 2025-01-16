@@ -11,7 +11,7 @@ Timothy Lo
 
 ## **Description:**
 
-This is a monorepo forum website I built for the NUS CVWO winter assignment submission. You can create, read, update and delete posts. 
+This is a mobile-friendly forum website I built for the NUS CVWO winter assignment submission. You can create, read, update and delete posts. 
 
 There is account-based authentication, user profile creation and users are able to view and comment on other user's posts. 
 
