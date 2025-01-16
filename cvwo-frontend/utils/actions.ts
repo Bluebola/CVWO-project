@@ -10,6 +10,7 @@ const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL, // Use the environment variable
 });
 
+// createProfileAction creates a new profile for the current user
 export const createProfileAction = async (
   prevState: unknown,
   formData: FormData
@@ -57,6 +58,7 @@ export const createProfileAction = async (
   } 
 };
 
+// updateProfileAction updates the current user's profile
 export const updateProfileAction = async (
   prevState: unknown,
   formData: FormData
@@ -89,6 +91,7 @@ export const updateProfileAction = async (
   }
 };
 
+// This checks if the user has a profile and whether or not they are authenticated.
 export const getAuthUser = async () => {
   const user = await currentUser();
   if (!user) throw new Error("You must be logged in to access this route");
@@ -98,6 +101,7 @@ export const getAuthUser = async () => {
   return user;
 };
 
+// This checks if the user has a profile.
 export const hasUserProfile = async (): Promise<boolean> => {
   // console.log("hasUserProfile function is running");
   const user = await currentUser();
@@ -119,6 +123,7 @@ export const hasUserProfile = async (): Promise<boolean> => {
   }
 };
 
+// fetchProfile fetches the current user's profile
 export const fetchProfile = async () => {
   const user = await getAuthUser();
 
@@ -141,6 +146,7 @@ export const fetchProfile = async () => {
   }
 };
 
+// fetchProfileForHome fetches the current user's profile for the home page
 export const fetchProfileForHome = async () => {
   const user = await currentUser();
   if (!user) {
@@ -170,6 +176,7 @@ export const fetchProfileForHome = async () => {
   }
 };
 
+// fetchProfileByUserID fetches a profile by the user's ID
 export const fetchProfileByUserID = async (userID: string | number) => {
   try {
     console.log("fetchProfileByUserID function is running");
@@ -182,6 +189,7 @@ export const fetchProfileByUserID = async (userID: string | number) => {
   }
 };
 
+// createPostAction creates a new post
 export const createPostAction = async (
   prevState: unknown,
   formData: FormData
@@ -227,6 +235,7 @@ export const createPostAction = async (
   }
 };
 
+// fetchPostsAction fetches all posts
 export const fetchPostsAction = async () => {
   try {
     // console.log("try block is runnindwag!!!!!!!!!!!!!!!");
@@ -239,6 +248,7 @@ export const fetchPostsAction = async () => {
   }
 };
 
+// fetchUserPostAction fetches all posts made by the current user profile
 export const fetchUserPostAction = async () => {
   try {
     // console.log("try block is running");

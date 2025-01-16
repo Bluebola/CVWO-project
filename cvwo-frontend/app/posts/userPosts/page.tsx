@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import CreatePostButton from "@/components/home/CreatePostButton";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
+
+// This is the page where the user can view their posts.
 async function UserPosts() {
 
 

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { createCommentAction, fetchPostById } from "@/utils/actions";
 import Link from "next/link";
 
-
+// This is the page where the user can create a comment.
 async function CreateComments({params}: {params: Promise<{ id: string }>}) {
   const { id } = await params;
   const post = await fetchPostById(Number(id));

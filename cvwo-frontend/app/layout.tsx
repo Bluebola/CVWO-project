@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   description: "Created for CVWO Winter Assignment 2024/2025",
 };
 
+// This is the root layout of the application. It provides the ClerkProvider and the Navbar.
 export default function RootLayout({
   children,
 }: Readonly<{

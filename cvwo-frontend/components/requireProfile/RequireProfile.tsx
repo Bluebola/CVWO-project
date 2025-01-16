@@ -9,7 +9,7 @@ interface CustomUserResource {
     hasProfile?: boolean;
   };
 }
-
+// This component checks if the user has a profile before rendering the children components.
 const RequireProfile = async ({ children }: { children: React.ReactNode }) => {
   const user = await currentUser();
 

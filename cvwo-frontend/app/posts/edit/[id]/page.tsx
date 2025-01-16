@@ -6,7 +6,7 @@ import CategoriesInput from "@/components/form/CategoriesInput";
 import RequireProfile from "@/components/requireProfile/RequireProfile";
 import { updatePostAction } from "@/utils/actions";
 
-
+// This is the page where the user can update their post.
 export default async function UpdatePost({params}: {params: Promise<{ id: string }>}) {
   const { id } = await params;
 

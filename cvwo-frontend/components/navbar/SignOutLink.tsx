@@ -3,6 +3,7 @@
 import { SignOutButton } from "@clerk/nextjs";
 import { useToast } from "@/hooks/use-toast";
 
+// This is the component that allows the user to sign out.
 function SignOutLink() {
   const { toast } = useToast();
   const handleLogout = () => {

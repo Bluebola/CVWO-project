@@ -3,6 +3,7 @@ import DarkMode from "./DarkMode";
 import Logo from "./Logo";
 import TextBox from "./TextBox";
 
+// This is the navbar component that contains the logo, search bar, dark mode toggle, and links dropdown.
 function Navbar() {
   return (
     <nav className="border-b-4 border-gray-200 dark:border-gray-700">

@@ -14,7 +14,7 @@ import { fetchCommentsById } from "@/utils/actions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-
+// This is the page where the user can view a post and its comments.
 async function PostPage({params}: {params: Promise<{ id: number }>}) {
   const { id } = await params;
   //obtain currentUser - to check if user is owner of comment

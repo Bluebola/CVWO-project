@@ -4,6 +4,8 @@ import FormInput from "@/components/form/FormInput";
 import RequireProfile from "@/components/requireProfile/RequireProfile";
 import { createPostAction } from "@/utils/actions";
 import CategoriesInput from "@/components/form/CategoriesInput";
+
+// This is the page where the user can fill in a form and create a post.
 function CreatePost() {
   return (
     <RequireProfile>

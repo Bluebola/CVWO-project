@@ -7,6 +7,7 @@ type HomePageProps = {
   searchParams: Promise<{ category: string }>;
 };
 
+//This is the home page of the application. It displays the posts in the selected category.
 async function HomePage({ searchParams }: HomePageProps) {
   const params = await searchParams;
   const category = params.category || "All";  

@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import FormInput from "@/components/form/FormInput";
 import FormContainer from "@/components/form/FormContainer";
 import { SubmitButton } from "@/components/form/Button";
+
+// This is the page where the user can create their profile.
 async function CreateProfile() {
   const user = await currentUser();
   // if (user && user.privateMetadata.hasProfile) {

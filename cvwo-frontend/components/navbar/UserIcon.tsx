@@ -17,6 +17,7 @@ import { LuUser } from 'react-icons/lu';
 import Image from 'next/image';
 import { useUser } from '@clerk/nextjs';
 
+// This is the component that displays the user's profile image or a default icon if the user does not have a profile image.
 function UserIcon() {
   const { user } = useUser();
 

@@ -17,6 +17,7 @@ import { SignInButton } from "@clerk/nextjs";
 import { SignUpButton } from "@clerk/nextjs";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 
+// This is the dropdown menu that contains the links to the different pages of the website.
 function LinksDropdown() {
   return (
     <DropdownMenu>
