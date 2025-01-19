@@ -13,7 +13,7 @@ Timothy Lo
 
 This is a mobile-friendly forum website I built for the NUS CVWO winter assignment submission. You can create, read, update and delete posts. 
 
-There is account-based authentication, user profile creation and users are able to view and comment on other user's posts. 
+There is account-based authentication, user profile creation and users are able to view and comment on other user's posts. There is also input validation for form inputs done through the Zod library.
 
 This web application has its frontend written in Next.js and Typescript, and it is hosted on Vercel. The backend is written in Golang using the GORM ORM and Fiber, and is hosted on fly.io. 
 
